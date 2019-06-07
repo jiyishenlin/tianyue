@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wjs.tianyue.mvc.mapper.Tb_MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.wjs.tianyue.mvc.pojo.Tb_Menu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, url, title, parentid
+  </sql>
+  
+  <select id="getUrl" resultType="java.lang.String" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Menu">
+  select url from tb_menu where title=#{title}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Menu" >
+    insert into tb_menu (id, url, title, 
+      parentid)
+    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Menu" >
+    insert into tb_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Menu" >
+    update tb_menu
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Menu" >
+    update tb_menu
+    set url = #{url,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

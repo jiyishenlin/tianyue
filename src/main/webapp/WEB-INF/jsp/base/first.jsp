@@ -9,7 +9,7 @@
 <script type="text/javascript" src="tool/easyui-1.7/jquery.min.js"></script>
 <script type="text/javascript" src="tool/easyui-1.7/jquery.easyui.min.js"></script>
 <style type="text/css">
-body{text-align:center} 
+body{background:#ccc} 
 #login-form{
 width:450px;
 height:400px;
@@ -17,16 +17,33 @@ margin:  auto;
 margin-top:10%;
 }
 </style>
+<script type="text/javascript">
+function submitForm(){
+	$('#login').form('submit', {
+	    url:"/login",
+	    onSubmit: function(){
+	       
+	    },
+	    success:function(data){
+	    	var data = eval('(' + data + ')');
+	    	if(data.success){
+	    		window.location.href="/base/index";
+	    	}
+	    }
+	});
+}
+
+</script>
 </head>
 <body>
 <div id="login-form">
 	<div  class="easyui-panel" title="登 录" style="width: 400px; max-width: 400px; padding: 30px 60px;">
 		<form id="login" method="post">
 			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" prompt="用户名" iconWidth="28" style="width: 100%; height: 34px; padding: 10px;">
+				<input name="username" value="admin" class="easyui-textbox" prompt="用户名" iconWidth="28" style="width: 100%; height: 34px; padding: 10px;">
 			</div>
 			<div style="margin-bottom: 20px">
-				<input class="easyui-passwordbox" prompt="密码" iconWidth="28" style="width: 100%; height: 34px; padding: 10px">
+				<input name="password" value="admin" class="easyui-passwordbox" prompt="密码" iconWidth="28" style="width: 100%; height: 34px; padding: 10px">
 			</div>
 		</form>
 		<div style="text-align: center; padding: 5px 0">
