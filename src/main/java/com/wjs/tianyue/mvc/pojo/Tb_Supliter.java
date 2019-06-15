@@ -1,17 +1,28 @@
 package com.wjs.tianyue.mvc.pojo;
 
 public class Tb_Supliter {
-    private Integer id=null;
+    private Integer id;
 
-    private String supname=null;
+    private String supname;
 
-    private String supaddr=null;
+    private String supaddr;
 
-    private String name=null;
+    private String name;
 
-    private String tel=null;
+    private String tel;
+    
+    private String des;
+    
 
-    public Integer getId() {
+    public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
+
+	public Integer getId() {
         return id;
     }
 

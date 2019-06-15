@@ -16,17 +16,79 @@ $(function(){
 	$('#sup_table').datagrid({
 		checkOnSelect:true,
 		striped:true,
-		emptyMsg:"您查询的数据为空",
 		toolbar: [{
-			iconCls: 'icon-edit',
-			handler: function(){alert('edit')}
-		},'-',{
-			iconCls: 'icon-help',
-			handler: function(){alert('help')}
-		},'-',{
 			iconCls: 'icon-add',
-			handler: function(){alert('help')}
+			handler: function(){
+				$('#addwin').window({
+					title:"新增供应商信息",
+				});
+				$('#addwin').window('refresh', '/sup/supAdd');
+				$('#addwin').window('open');
+			}
+		},'-',{
+			iconCls: 'icon-edit',
+			handler: function(){
+				var obj = $('#sup_table').datagrid('getSelected');
+				if(obj == null){
+					$.messager.alert('警告','请先选择一行进行修改');
+				}else{
+					var id = obj.id;
+					$('#addwin').window({
+						title:"修改供应商信息",
+					});
+					$('#addwin').window('refresh', '/sup/supAdd?id='+id);
+					$('#addwin').window('open');
+				}
+			}
+		},'-',{
+			iconCls: 'icon-cut',
+			handler: function(){
+				var obj = $('#sup_table').datagrid('getSelected');
+				if(obj == null){
+					$.messager.alert('警告','请先选择一行进行删除');
+				}else{
+					var id = obj.id;
+					$.messager.confirm('警告','您确定要删除吗?',function(r){
+					    if (r){
+					        $.ajax({
+					        	url:'/delete/sup?id='+id,
+					        	success:function(data){
+					        		$.messager.alert('信息',data.message);
+					        		$('#sup_table').datagrid('reload'); 
+					        	}
+					        });
+					    }
+					});
+				}
+			}
+		},'-',{
+			iconCls: 'icon-print',
+			handler: function(){
+				$.messager.confirm('确认对话框', '将要导出100条 ！', function(r){
+					if (r){
+						$.ajax({
+							url:'/export/sup',
+							success:function(data){
+								if(data.success){
+									$.messager.alert('信息',data.message);
+								}else{
+									$.messager.alert('信息',data.message);
+								}
+							}
+						});
+					}
+				});
+			}
 		}]
+	});
+	
+	$('#addwin').window({
+	    width:600,
+	    height:400,
+	    modal:true,
+	    collapsible:false,
+	    minimizable:false,
+	    closed:true
 	});
 });
 function getDataGrid(){
@@ -35,6 +97,39 @@ function getDataGrid(){
 	$('#sup_table').datagrid({
 		url:'/getDataGrid?supname='+supname,
 	});
+}
+function creatWin(){
+	
+}
+function saveform(){
+	var id = $("#id").val();
+	if(id ==''){
+		//这是新增
+		$('#add_form').form('submit', {
+		    url:"/insert/sup",
+		    success:function(data){
+		    	var data = eval('(' + data + ')');
+		        $.messager.alert('信息',data.message);
+		        getDataGrid();
+		    }
+		});
+	}else{
+		//这是修改
+		$('#add_form').form('submit', {
+		    url:"/updata/sup",
+		    success:function(data){
+		    	var data = eval('(' + data + ')');
+		    	$.messager.confirm('确认对话框', data.message, function(r){
+					if (r){
+						if(data.success){
+				    		$('#addwin').window('colse');
+				        	getDataGrid();
+				    	}
+					}
+		    	})
+		    }
+		});
+	}
 }
 </script>
 </head>
@@ -50,6 +145,8 @@ function getDataGrid(){
         data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagination:true,fitColumns:true,singleSelect:true,rownumbers:true">
     <thead>
         <tr>
+            <th data-options="field:'ok',checkbox:true"></th>
+            <th data-options="field:'id',hidden:true"></th>
             <th data-options="field:'supname',width:200">供应商公司名称</th>
             <th data-options="field:'supaddr',width:200">供应商公司地址</th>
             <th data-options="field:'name',width:150">联系人名称</th>
@@ -58,5 +155,8 @@ function getDataGrid(){
         </tr>
     </thead>
 </table>
+<div id="addwin">
+
+</div>
 </body>
 </html>

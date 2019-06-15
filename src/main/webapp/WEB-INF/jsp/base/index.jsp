@@ -121,6 +121,11 @@ body {
 						<li class="list_li" name="logmager">日志管理</li>
 					</ul>
 				</div>
+				<div title="游戏管理" data-options="iconCls:'icon-help'">
+					<ul class="easyui-tree">
+						<li class="list_li" name="game">扫雷</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div id="center" data-options="region:'center'">

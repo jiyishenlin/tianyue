@@ -19,7 +19,9 @@
   </if>
   </trim>
   </select>
-  
+  <select id="getSupliterList" resultMap="BaseResultMap" parameterType="int">
+  select * from tb_supliter LIMIT #{0},#{1};
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

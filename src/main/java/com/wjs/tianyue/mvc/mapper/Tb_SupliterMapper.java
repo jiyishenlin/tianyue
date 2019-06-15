@@ -9,13 +9,16 @@ public interface Tb_SupliterMapper {
 
     int insert(Tb_Supliter record);
 
-    int insertSelective(Tb_Supliter record);
 
-    Tb_Supliter selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Tb_Supliter record);
 
+/////////////////////////////////////////////////////////////////
+    int insertSelective(Tb_Supliter record);
     int updateByPrimaryKey(Tb_Supliter record);
-
 	List<Tb_Supliter> getDataGrid(Tb_Supliter sup);
+
+	Tb_Supliter selectByPrimaryKey(Integer id);
+
+	List<Tb_Supliter> getSupliterList(int start, int size);
 }
