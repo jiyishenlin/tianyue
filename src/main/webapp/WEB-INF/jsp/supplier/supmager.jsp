@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextpath" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ERP管理系统界面</title>
-<link rel="stylesheet" type="text/css" href="/tool/easyui-1.7/themes/gray/easyui.css">
-<link rel="stylesheet" type="text/css" href="/tool/easyui-1.7/themes/icon.css">
-<script type="text/javascript" src="/tool/easyui-1.7/jquery.min.js"></script>
-<script type="text/javascript" src="/tool/easyui-1.7/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/tool/easyui-1.7/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextpath }/tool/easyui-1.7/themes/gray/easyui.css">
+<link rel="stylesheet" type="text/css" href="${contextpath }/tool/easyui-1.7/themes/icon.css">
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/jquery.min.js"></script>
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/locale/easyui-lang-zh_CN.js"></script>
 
 <script type="text/javascript">
 $(function(){
@@ -22,7 +24,7 @@ $(function(){
 				$('#addwin').window({
 					title:"新增供应商信息",
 				});
-				$('#addwin').window('refresh', '/sup/supAdd');
+				$('#addwin').window('refresh', '${contextpath }/sup/supAdd');
 				$('#addwin').window('open');
 			}
 		},'-',{
@@ -36,7 +38,7 @@ $(function(){
 					$('#addwin').window({
 						title:"修改供应商信息",
 					});
-					$('#addwin').window('refresh', '/sup/supAdd?id='+id);
+					$('#addwin').window('refresh', '${contextpath }/sup/supAdd?id='+id);
 					$('#addwin').window('open');
 				}
 			}
@@ -51,7 +53,7 @@ $(function(){
 					$.messager.confirm('警告','您确定要删除吗?',function(r){
 					    if (r){
 					        $.ajax({
-					        	url:'/delete/sup?id='+id,
+					        	url:'${contextpath }/delete/sup?id='+id,
 					        	success:function(data){
 					        		$.messager.alert('信息',data.message);
 					        		$('#sup_table').datagrid('reload'); 
@@ -62,12 +64,12 @@ $(function(){
 				}
 			}
 		},'-',{
-			iconCls: 'icon-print',
+			iconCls: 'icon-excel',
 			handler: function(){
 				$.messager.confirm('确认对话框', '将要导出100条 ！', function(r){
 					if (r){
 						$.ajax({
-							url:'/export/sup',
+							url:'${contextpath }/export/sup',
 							success:function(data){
 								if(data.success){
 									$.messager.alert('信息',data.message);
@@ -95,7 +97,7 @@ function getDataGrid(){
 	var supname = $("#supname").val();
 	
 	$('#sup_table').datagrid({
-		url:'/getDataGrid?supname='+supname,
+		url:'${contextpath }/getDataGrid?supname='+supname,
 	});
 }
 function creatWin(){
@@ -106,7 +108,7 @@ function saveform(){
 	if(id ==''){
 		//这是新增
 		$('#add_form').form('submit', {
-		    url:"/insert/sup",
+		    url:"${contextpath }/insert/sup",
 		    success:function(data){
 		    	var data = eval('(' + data + ')');
 		        $.messager.alert('信息',data.message);
@@ -116,7 +118,7 @@ function saveform(){
 	}else{
 		//这是修改
 		$('#add_form').form('submit', {
-		    url:"/updata/sup",
+		    url:"${contextpath }/updata/sup",
 		    success:function(data){
 		    	var data = eval('(' + data + ')');
 		    	$.messager.confirm('确认对话框', data.message, function(r){

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wjs.tianyue.mvc.mapper.Tb_OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.wjs.tianyue.mvc.pojo.Tb_Order" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="VARCHAR" />
+    <result column="supname" property="supname" jdbcType="VARCHAR" />
+    <result column="supaddr" property="supaddr" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_name, order_time, delivery_time, supname, supaddr, remarks, status
+  </sql>
+    <select id="getOrderList" resultMap="BaseResultMap" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Order">
+  	select <include refid="Base_Column_List" />
+  	 from tb_order where 1=1
+  	<trim>
+  		<if test="supname != null and supname != ''">
+  		 and supname=#{supname}
+  		</if>
+  		<if test="orderTime_s != null and orderTime_s != ''">
+  		and order_time = #{orderTime_s}
+  		</if>
+  		<if test="orderTime_e != null and orderTime_e != ''">
+  		and order_time = #{orderTime_e}
+  		</if>
+  	</trim>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Order" >
+    insert into tb_order (id, order_name, order_time, 
+      delivery_time, supname, supaddr, 
+      remarks, status)
+    values (#{id,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, #{orderTime,jdbcType=VARCHAR}, 
+      #{deliveryTime,jdbcType=VARCHAR}, #{supname,jdbcType=VARCHAR}, #{supaddr,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Order" >
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="supname != null" >
+        supname,
+      </if>
+      <if test="supaddr != null" >
+        supaddr,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="supname != null" >
+        #{supname,jdbcType=VARCHAR},
+      </if>
+      <if test="supaddr != null" >
+        #{supaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Order" >
+    update tb_order
+    <set >
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="supname != null" >
+        supname = #{supname,jdbcType=VARCHAR},
+      </if>
+      <if test="supaddr != null" >
+        supaddr = #{supaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wjs.tianyue.mvc.pojo.Tb_Order" >
+    update tb_order
+    set order_name = #{orderName,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=VARCHAR},
+      supname = #{supname,jdbcType=VARCHAR},
+      supaddr = #{supaddr,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

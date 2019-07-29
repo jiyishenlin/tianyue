@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextpath" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ERP管理系统界面</title>
-<link rel="stylesheet" type="text/css" href="/tool/easyui-1.7/themes/gray/easyui.css">
-<link rel="stylesheet" type="text/css" href="/tool/easyui-1.7/themes/icon.css">
-<script type="text/javascript" src="/tool/easyui-1.7/jquery.min.js"></script>
-<script type="text/javascript" src="/tool/easyui-1.7/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextpath }/tool/easyui-1.7/themes/gray/easyui.css">
+<link rel="stylesheet" type="text/css" href="${contextpath }/tool/easyui-1.7/themes/icon.css">
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/jquery.min.js"></script>
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/jquery.easyui.min.js"></script>
 <style type="text/css">
 * {
 	padding: 0px;
@@ -30,7 +32,7 @@ body {
 			var flag = $('#center_tab').tabs('exists', title);
 			if (!flag) {
 				$.ajax({
-					url : "/getUrl",
+					url : "${contextpath }/getUrl",
 					data : "title=" + id,
 					type : "post",
 					//async : false,
@@ -131,8 +133,6 @@ body {
 		<div id="center" data-options="region:'center'">
 			<div id="center_tab" class="easyui-tabs" style="width: 100%; height: 100%">
 				<div title="首页" style="padding: 10px"></div>
-				<div title="Help" data-options="iconCls:'icon-help',closable:true" style="padding: 10px">This is the help
-					content.</div>
 			</div>
 		</div>
 	</div>

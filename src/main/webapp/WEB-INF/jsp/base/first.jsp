@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextpath" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
-<link rel="stylesheet" type="text/css" href="tool/easyui-1.7/themes/black/easyui.css">
-<link rel="stylesheet" type="text/css" href="tool/easyui-1.7/themes/icon.css">
-<script type="text/javascript" src="tool/easyui-1.7/jquery.min.js"></script>
-<script type="text/javascript" src="tool/easyui-1.7/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextpath }/tool/easyui-1.7/themes/black/easyui.css">
+<link rel="stylesheet" type="text/css" href="${contextpath }/tool/easyui-1.7/themes/icon.css">
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/jquery.min.js"></script>
+<script type="text/javascript" src="${contextpath }/tool/easyui-1.7/jquery.easyui.min.js"></script>
 <style type="text/css">
 body{background:#ccc} 
 #login-form{
@@ -20,17 +22,17 @@ margin-top:10%;
 <script type="text/javascript">
 function submitForm(){
 	$('#login').form('submit', {
-	    url:"/login",
+	    url:"${contextpath }/login",
 	    onSubmit: function(){
 	       
 	    },
 	    success:function(data){
-	    	var data = eval('(' + data + ')');
+	    	data = JSON.parse(data);
 	    	if(data.success){
-	    		window.location.href="/base/index";
+	    		window.location.href="${contextpath }/base/index";
 	    	}
 	    }
-	});
+	})
 }
 
 </script>
@@ -47,7 +49,7 @@ function submitForm(){
 			</div>
 		</form>
 		<div style="text-align: center; padding: 5px 0">
-			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width: 100%">登录</a> 
+			<a href="javascript:void(0);" class="easyui-linkbutton" onclick="submitForm();" style="width: 100%;" >登录</a> 
 		</div>
 	</div>
 	</div>
